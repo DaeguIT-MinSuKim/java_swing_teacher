@@ -17,6 +17,7 @@ public class LayoutMain extends JFrame implements ActionListener {
 	private JButton btnFlowLayout;
 	private JButton btnBorderLayout;
 	private JButton btnGridLayout;
+	private JButton btnAbsoluteLayout;
 
 	/**
 	 * Launch the application.
@@ -43,11 +44,11 @@ public class LayoutMain extends JFrame implements ActionListener {
 	private void initialize() {
 		setTitle("배치레이아웃예제");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 107);
+		setBounds(100, 100, 450, 166);
 		contentPane = new JPanel();
 		contentPane.setBorder(new TitledBorder(null, "레이아웃 예제", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(1, 0, 0, 0));
+		contentPane.setLayout(new GridLayout(0, 2, 10, 10));
 		
 		btnFlowLayout = new JButton("FlowLayout");
 		btnFlowLayout.addActionListener(this);
@@ -60,9 +61,16 @@ public class LayoutMain extends JFrame implements ActionListener {
 		btnGridLayout = new JButton("GridLayout");
 		btnGridLayout.addActionListener(this);
 		contentPane.add(btnGridLayout);
+		
+		btnAbsoluteLayout = new JButton("AbsoluteLayout");
+		btnAbsoluteLayout.addActionListener(this);
+		contentPane.add(btnAbsoluteLayout);
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnAbsoluteLayout) {
+			btnAbsoluteLayoutActionPerformed(e);
+		}
 		if (e.getSource() == btnGridLayout) {
 			btnGridLayoutActionPerformed(e);
 		}
@@ -83,6 +91,10 @@ public class LayoutMain extends JFrame implements ActionListener {
 	}
 	protected void btnGridLayoutActionPerformed(ActionEvent e) {
 		GridLayoutEx frame = new GridLayoutEx();
+		frame.setVisible(true);
+	}
+	protected void btnAbsoluteLayoutActionPerformed(ActionEvent e) {
+		AbsoluteLayoutEx frame = new AbsoluteLayoutEx();
 		frame.setVisible(true);
 	}
 }
