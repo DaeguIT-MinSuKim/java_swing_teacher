@@ -8,12 +8,15 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import java_swing_teacher.chap09.layout.exam.Exam2;
+import java_swing_teacher.chap09.layout.exam.Exam4;
+import java_swing_teacher.chap09.layout.exam.Exam5;
+import java_swing_teacher.chap09.layout.exam.Exam7;
+import java_swing_teacher.chap09.layout.exam.Exam8;
 import java_swing_teacher.chap09.layout.openchallange.OpenChallengeEx;
 
 @SuppressWarnings("serial")
@@ -163,11 +166,13 @@ public class LayoutMain extends JFrame implements ActionListener {
 	}
 
 	protected void btnExam5ActionPerformed(ActionEvent e) {
-		JOptionPane.showMessageDialog(null, e.getActionCommand());
+		Exam5 frame = new Exam5();
+		frame.setVisible(true);
 	}
 
 	protected void btnExam4ActionPerformed(ActionEvent e) {
-		JOptionPane.showMessageDialog(null, e.getActionCommand());
+		Exam4 frame= new Exam4();
+		frame.setVisible(true);
 	}
 
 	protected void btnGridActionPerformed(ActionEvent e) {
@@ -191,10 +196,12 @@ public class LayoutMain extends JFrame implements ActionListener {
 	}
 
 	protected void btnExam8ActionPerformed(ActionEvent e) {
-		JOptionPane.showMessageDialog(null, e.getActionCommand());
+		Exam8 frame = new Exam8();
+		frame.setVisible(true);
 	}
 
 	protected void btnExam7ActionPerformed(ActionEvent e) {
-		JOptionPane.showMessageDialog(null, e.getActionCommand());
+		Exam7 frame = new Exam7();
+		frame.setVisible(true);
 	}
 }
