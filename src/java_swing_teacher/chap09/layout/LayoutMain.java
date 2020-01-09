@@ -5,9 +5,12 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
@@ -119,10 +122,22 @@ public class LayoutMain extends JFrame implements ActionListener {
 
 		btnExam8 = new JButton("Exam8");
 		btnExam8.addActionListener(this);
+		btnExam8.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				System.out.println(e.getButton() + ":" + e.getClickCount());
+			}
+			
+		});
 		pRight.add(btnExam8);
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		System.out.println(e.getActionCommand());
+//		JOptionPane.showMessageDialog(null, e.getSource());
+		
 		if (e.getSource() == btnExam7) {
 			btnExam7ActionPerformed(e);
 		}
