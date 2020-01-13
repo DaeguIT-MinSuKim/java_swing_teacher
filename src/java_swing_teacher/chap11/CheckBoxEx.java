@@ -134,6 +134,12 @@ public class CheckBoxEx extends JFrame implements ItemListener, ActionListener {
 			chkAppleItemStateChanged(e);
 		}
 		lblSum.setText(String.format(sumStr, sum));
+		
+		if (chkApple.isSelected() && chkPear.isSelected() && chkCherry.isSelected()) {
+			btnAll.setText("모든 과일 취소");
+		}else {
+			btnAll.setText("모든 과일 선택");
+		}
 	}
 	
 	protected void chkAppleItemStateChanged(ItemEvent e) {
