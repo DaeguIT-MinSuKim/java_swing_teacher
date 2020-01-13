@@ -37,9 +37,7 @@ public class CheckBoxEx extends JFrame implements ItemListener, ActionListener {
 	private JButton btnAll;
 	private JButton btnOk;
 	private JButton btnCherry;
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -53,9 +51,6 @@ public class CheckBoxEx extends JFrame implements ItemListener, ActionListener {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public CheckBoxEx() {
 		initialize();
 	}
@@ -142,26 +137,35 @@ public class CheckBoxEx extends JFrame implements ItemListener, ActionListener {
 	}
 	
 	protected void chkAppleItemStateChanged(ItemEvent e) {
+		JCheckBox ch = (JCheckBox) e.getItem();
 		if (e.getStateChange()==ItemEvent.SELECTED) {
 			sum += 100;
+			btnApple.setText(ch.getText() + " 취소");
 		}else {
 			sum -= 100;
+			btnApple.setText(ch.getText() + " 선택");
 		}
 	}
 	
 	protected void chdPearItemStateChanged(ItemEvent e) {
+		JCheckBox ch = (JCheckBox) e.getItem();
 		if (e.getStateChange()==ItemEvent.SELECTED) {
 			sum += 500;
+			btnPear.setText(ch.getText() + " 취소");
 		}else {
 			sum -= 500;
+			btnPear.setText(ch.getText() + " 선택");
 		}
 	}
 	
 	protected void chkCherryItemStateChanged(ItemEvent e) {
+		JCheckBox ch = (JCheckBox) e.getItem();
 		if (e.getStateChange()==ItemEvent.SELECTED) {
 			sum += 20000;
+			btnCherry.setText(ch.getText() + " 취소");
 		}else {
 			sum -= 20000;
+			btnCherry.setText(ch.getText() + " 선택");
 		}
 	}
 	
