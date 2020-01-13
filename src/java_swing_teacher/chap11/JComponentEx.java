@@ -18,6 +18,8 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ContainerListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.event.ContainerEvent;
 
 public class JComponentEx extends JFrame implements ActionListener, ContainerListener {
@@ -125,6 +127,51 @@ public class JComponentEx extends JFrame implements ActionListener, ContainerLis
 	
 	protected void btn4ActionPerformed(ActionEvent e) {
 		JButton btn = new JButton("Added");
+		btn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFrame frame = new JFrame("Test");
+				frame.addWindowListener(new WindowListener() {
+					
+					@Override
+					public void windowOpened(WindowEvent e) {
+						System.out.printf("%s()%n", "windowOpened");
+					}
+					
+					@Override
+					public void windowIconified(WindowEvent e) {
+						System.out.printf("%s()%n", "windowIconified");						
+					}
+					
+					@Override
+					public void windowDeiconified(WindowEvent e) {
+						System.out.printf("%s()%n", "windowDeiconified");						
+					}
+					
+					@Override
+					public void windowDeactivated(WindowEvent e) {
+						System.out.printf("%s()%n", "windowDeactivated");						
+					}
+					
+					@Override
+					public void windowClosing(WindowEvent e) {
+						System.out.printf("%s()%n", "windowClosing");						
+					}
+					
+					@Override
+					public void windowClosed(WindowEvent e) {
+						System.out.printf("%s()%n", "windowClosed");						
+					}
+					
+					@Override
+					public void windowActivated(WindowEvent e) {
+						System.out.printf("%s()%n", "windowActivated");						
+					}
+				});
+				frame.setBounds(200, 100, 450, 300);
+				frame.setVisible(true);
+			}
+		});
 		pRight.add(btn);
 		revalidate();
 	}
