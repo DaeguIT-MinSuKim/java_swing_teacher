@@ -21,6 +21,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class RadioButtonEx extends JFrame implements ItemListener, ActionListener {
@@ -40,6 +41,7 @@ public class RadioButtonEx extends JFrame implements ItemListener, ActionListene
 	private JButton btnPear;
 	private JButton btnCherry;
 	private JButton btnConfirm;
+	private JTextField txtTesat;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -105,6 +107,7 @@ public class RadioButtonEx extends JFrame implements ItemListener, ActionListene
 		pRight.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		btnApple = new JButton("사과 선택");
+		btnApple.setEnabled(false);
 		btnApple.addActionListener(this);
 		pRight.add(btnApple);
 		
@@ -119,6 +122,11 @@ public class RadioButtonEx extends JFrame implements ItemListener, ActionListene
 		btnConfirm = new JButton("선택한 과일 확인");
 		btnConfirm.addActionListener(this);
 		pRight.add(btnConfirm);
+		
+		txtTesat = new JTextField();
+		txtTesat.setText("tesat");
+		pRight.add(txtTesat);
+		txtTesat.setColumns(10);
 		
 		rdbtnApple.addItemListener(this);
 		rdbtnPear.addItemListener(this);
