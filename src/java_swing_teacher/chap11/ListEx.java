@@ -12,8 +12,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -171,7 +173,7 @@ public class ListEx extends JFrame implements ListSelectionListener, ActionListe
 		if (e.getSource() == strList) {
 			strListValueChanged(e);
 		}
-	}
+	}  
 	
 	protected void strListValueChanged(ListSelectionEvent e) {
 		System.out.println(e.getValueIsAdjusting());
