@@ -20,9 +20,13 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.ListSelectionModel;
+import javax.swing.BoxLayout;
+import javax.swing.JTextField;
+import java.awt.event.ContainerListener;
+import java.awt.event.ContainerEvent;
 
 @SuppressWarnings("serial")
-public class ListEx extends JFrame implements ListSelectionListener, ActionListener {
+public class ListEx extends JFrame implements ListSelectionListener, ActionListener{
 
 	private JPanel contentPane;
 	private ArrayList<String> listFruits;
@@ -37,8 +41,13 @@ public class ListEx extends JFrame implements ListSelectionListener, ActionListe
 	private JButton btnOk2;
 	private JButton btnSet2;
 	private JScrollPane scrollPane;
-	private JList imgList;
-
+	private JList<ImageIcon> imgList;
+	private JPanel p3;
+	private JTextField tf;
+	private JList<String> list;
+	
+	private ArrayList<String> v;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -75,6 +84,8 @@ public class ListEx extends JFrame implements ListSelectionListener, ActionListe
 		listImg.add(new ImageIcon(imgDirPath + "icon2.png"));
 		listImg.add(new ImageIcon(imgDirPath + "icon3.png"));
 		listImg.add(new ImageIcon(imgDirPath + "icon4.png"));
+		
+		v = new ArrayList<String>();
 	}
 	
 	private void initialize() {
@@ -131,6 +142,26 @@ public class ListEx extends JFrame implements ListSelectionListener, ActionListe
 		imgList = new JList<>(new Vector<>(listImg));
 		imgList.addListSelectionListener(this);
 		scrollPane.setViewportView(imgList);
+		
+		p3 = new JPanel();
+		contentPane.add(p3);
+		p3.setLayout(new BoxLayout(p3, BoxLayout.Y_AXIS));
+		
+		tf = new JTextField();
+		tf.addActionListener(this);
+		p3.add(tf);
+		tf.setColumns(10);
+		
+		JPanel panel_1 = new JPanel();
+		p3.add(panel_1);
+		panel_1.setLayout(new BorderLayout(0, 0));
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		panel_1.add(scrollPane_1, BorderLayout.CENTER);
+		
+		
+		list = new JList<>(new Vector<>(v));
+		scrollPane_1.setViewportView(list);
 	}
 
 	public void valueChanged(ListSelectionEvent e) {
@@ -143,11 +174,17 @@ public class ListEx extends JFrame implements ListSelectionListener, ActionListe
 	}
 	
 	protected void strListValueChanged(ListSelectionEvent e) {
-		String selectValue = strList.getSelectedValue();
-		JOptionPane.showMessageDialog(null, "valueChanged - 선택한 과일은?" + selectValue);
+		System.out.println(e.getValueIsAdjusting());
+		 if (!e.getValueIsAdjusting())  {
+				String selectValue = strList.getSelectedValue();
+				JOptionPane.showMessageDialog(null, "valueChanged - 선택한 과일은?" + selectValue);
+		 }
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == tf) {
+			tfActionPerformed(e);
+		}
 		if (e.getSource() == btnOk2) {
 			btnOk2ActionPerformed(e);
 		}
@@ -191,6 +228,14 @@ public class ListEx extends JFrame implements ListSelectionListener, ActionListe
 		String fullName = icon.getDescription();
 		JOptionPane.showMessageDialog(null, fullName.substring(fullName.lastIndexOf("\\")+1));
 	}
+	protected void tfActionPerformed(ActionEvent e) {
+		String newStr = tf.getText().trim();
+		v.add(newStr);
+		
+		list.setListData(new Vector<>(v));
+		tf.setText("");
+	}
+
 }
 
 
