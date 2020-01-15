@@ -33,7 +33,7 @@ public class Student {
 
 	public void setKor(int kor) {
 		this.kor = kor;
-	}
+	} 
 
 	public void setMath(int math) {
 		this.math = math;

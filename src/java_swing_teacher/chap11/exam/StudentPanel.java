@@ -96,6 +96,6 @@ public class StudentPanel extends AbsItemPanel<Student> {
 		tfMath.setText(item.getMath()+"");
 		tfEng.setText(item.getEng()+"");
 		
-	}
+	} 
 
 }
