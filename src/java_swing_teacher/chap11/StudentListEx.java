@@ -115,10 +115,12 @@ public class StudentListEx extends JFrame implements ActionListener {
 			if (e.getActionCommand().equals("수정")) {
 				pStudent.setItem(list.getSelectedValue());
 				btnAdd.setText("수정");
+				list.clearSelection();
 			}
 			if (e.getActionCommand().equals("삭제")) {
 				stds.remove(list.getSelectedValue());
 				list.setListData(new Vector<>(stds));
+				pStudent.clearTf();
 			}
 		}
 	}; 

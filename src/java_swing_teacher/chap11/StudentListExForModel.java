@@ -6,17 +6,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 
 import java_swing_teacher.chap11.exam.Student;
 import java_swing_teacher.chap11.exam.StudentPanel;
@@ -99,8 +101,31 @@ public class StudentListExForModel extends JFrame implements ActionListener {
 		pBtns.add(btnCancel);
 		
 		list.setComponentPopupMenu(createPopupMenu());
+		model.addListDataListener(myListDataLintener);
 	}
 
+	ListDataListener myListDataLintener = new ListDataListener() {
+		@Override
+		public void intervalRemoved(ListDataEvent e) {
+			showMsg("삭제", e);
+		}
+		
+		@Override
+		public void intervalAdded(ListDataEvent e) {
+			showMsg("추가", e);		
+		}
+		
+		@Override
+		public void contentsChanged(ListDataEvent e) {
+			showMsg("수정", e);
+		}
+		
+		private void showMsg(String msg, ListDataEvent e) {
+			System.out.println(e);
+			JOptionPane.showMessageDialog(null, msg + "되었습니다.");	
+		}
+	};
+	
 	private JPopupMenu createPopupMenu() {
 		JPopupMenu popMenu = new JPopupMenu();
 		
@@ -121,9 +146,11 @@ public class StudentListExForModel extends JFrame implements ActionListener {
 			if (e.getActionCommand().equals("수정")) {
 				pStudent.setItem(list.getSelectedValue());
 				btnAdd.setText("수정");
+				list.clearSelection();
 			}
 			if (e.getActionCommand().equals("삭제")) {
 				model.removeElement(list.getSelectedValue());
+				pStudent.clearTf();
 			}
 		}
 	}; 
