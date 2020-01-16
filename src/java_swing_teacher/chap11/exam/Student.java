@@ -93,5 +93,11 @@ public class Student {
 		return true;
 	}
 
+	public int getTotal() {
+		return kor + eng + math;
+	}
 	
+	public double getAvg() {
+		return getTotal()/3D;
+	}
 }

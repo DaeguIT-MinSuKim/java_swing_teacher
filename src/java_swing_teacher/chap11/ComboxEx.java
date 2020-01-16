@@ -43,6 +43,7 @@ public class ComboxEx extends JFrame implements ActionListener, ItemListener {
 	private JTextField tfNum;
 	private JButton btnSearch;
 	private DefaultComboBoxModel<Student> modelStudent;
+	private ArrayList<Student> stdList;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -90,6 +91,7 @@ public class ComboxEx extends JFrame implements ActionListener, ItemListener {
 		pRight.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		cmbStudent = new JComboBox<Student>();
+		cmbStudent.addItemListener(this);
 		pRight.add(cmbStudent);
 		
 		lblStudent = new JLabel("학생정보");
@@ -98,6 +100,7 @@ public class ComboxEx extends JFrame implements ActionListener, ItemListener {
 		pRight.add(lblStudent);
 		
 		btnConfirm = new JButton("학생 확인");
+		btnConfirm.addActionListener(this);
 		pRight.add(btnConfirm);
 		
 		pSearch = new JPanel();
@@ -113,6 +116,7 @@ public class ComboxEx extends JFrame implements ActionListener, ItemListener {
 		tfNum.setColumns(10);
 		
 		btnSearch = new JButton("검색");
+		btnSearch.addActionListener(this);
 		pSearch.add(btnSearch);
 		
 		cmbFruit.setModel(getFruitModel());
@@ -134,13 +138,13 @@ public class ComboxEx extends JFrame implements ActionListener, ItemListener {
 	}
 
 	private ComboBoxModel<Student> getStudentModel() {
-		ArrayList<Student> stds = new ArrayList<Student>();
-		stds.add(new Student(1, "서현진", 80, 90, 70));
-		stds.add(new Student(2, "이성경", 90, 90, 40));
-		stds.add(new Student(3, "이유영", 50, 50, 60));
+		stdList = new ArrayList<Student>();
+		stdList.add(new Student(1, "서현진", 80, 90, 70));
+		stdList.add(new Student(2, "이성경", 90, 90, 40));
+		stdList.add(new Student(3, "이유영", 50, 50, 60));
 		
 		modelStudent = new DefaultComboBoxModel<>();
-		for(Student element : stds) {
+		for(Student element : stdList) {
 			modelStudent.addElement(element);
 		}
 		return modelStudent;
@@ -158,6 +162,12 @@ public class ComboxEx extends JFrame implements ActionListener, ItemListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnSearch) {
+			btnSearchActionPerformed(e);
+		}
+		if (e.getSource() == btnConfirm) {
+			btnConfirmActionPerformed(e);
+		}
 		if (e.getSource() == btnOk) {
 			btnOkActionPerformed(e);
 		}
@@ -172,6 +182,9 @@ public class ComboxEx extends JFrame implements ActionListener, ItemListener {
 		}
 	}
 	public void itemStateChanged(ItemEvent e) {
+		if (e.getSource() == cmbStudent) {
+			cmbStudentItemStateChanged(e);
+		}
 		if (e.getSource() == cmbFruit) {
 			cmbFruitItemStateChanged(e);
 		}
@@ -190,5 +203,43 @@ public class ComboxEx extends JFrame implements ActionListener, ItemListener {
 		}
 		String message = String.format("선택한 과일은 ? %s - %s", cmbFruit.getSelectedItem(), model.getSelectedItem());
 		JOptionPane.showMessageDialog(null, message);
+	}
+	protected void cmbStudentItemStateChanged(ItemEvent e) {
+		if (e.getStateChange()==ItemEvent.SELECTED) {
+			Student selStudent = (Student) cmbStudent.getSelectedItem();
+			String text = String.format("%d %s %3d %3d %3d %3d %.2f", 
+					selStudent.getStdNo(),
+					selStudent.getStdName(),
+					selStudent.getKor(),
+					selStudent.getEng(),
+					selStudent.getMath(),
+					selStudent.getTotal(),
+					selStudent.getAvg());
+			lblStudent.setText(text);
+		}
+	}
+	protected void btnConfirmActionPerformed(ActionEvent e) {
+		int selIdx = cmbStudent.getSelectedIndex();
+		if (selIdx == -1) {
+			JOptionPane.showMessageDialog(null, "학생을 선택하세요");
+			return;
+		}
+		Student selStudent = (Student) cmbStudent.getSelectedItem();
+		String message = String.format("선택한 학생은 %d %s %3d %3d %3d %3d %.2f", 
+				selStudent.getStdNo(),
+				selStudent.getStdName(),
+				selStudent.getKor(),
+				selStudent.getEng(),
+				selStudent.getMath(),
+				selStudent.getTotal(),
+				selStudent.getAvg());
+		JOptionPane.showMessageDialog(null, message);
+	}
+	protected void btnSearchActionPerformed(ActionEvent e) {
+		int stdNo = Integer.parseInt(tfNum.getText().trim());
+		Student std = new Student(stdNo);
+		Student findStd = stdList.get(stdList.indexOf(std));
+		modelStudent.setSelectedItem(findStd);
+		
 	}
 }
