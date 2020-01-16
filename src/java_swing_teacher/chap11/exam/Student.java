@@ -86,6 +86,7 @@ public class Student {
 
 	@Override
 	public boolean equals(Object obj) {
+		if (obj == null) return false;
 		Student other = (Student) obj;
 		if (stdNo != other.stdNo)
 			return false;
