@@ -20,6 +20,13 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.GridBagLayout;
+import javax.swing.SpinnerListModel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SpinnerDateModel;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Calendar;
 
 public class Slider_SpinnerEx extends JFrame implements ChangeListener, ActionListener {
 
@@ -42,6 +49,16 @@ public class Slider_SpinnerEx extends JFrame implements ChangeListener, ActionLi
 	private JLabel lblBlue;
 	private JTextField tfBlue;
 	private JButton btnColor;
+	private JPanel panel_1;
+	private JSpinner spList;
+	private JLabel lblList;
+	private JPanel panel_2;
+	private JPanel panel_3;
+	private JSpinner spNumber;
+	private JLabel lblNumber;
+	private JSpinner spDate;
+	private JLabel lblDate;
+	private String[] listDatas;
 
 	/**
 	 * Launch the application.
@@ -167,6 +184,70 @@ public class Slider_SpinnerEx extends JFrame implements ChangeListener, ActionLi
 		pSpinner1 = new JPanel();
 		pSpinner1.setBorder(new TitledBorder(null, "JSpinner \uC608\uC81C1", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		contentPane.add(pSpinner1);
+		pSpinner1.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		panel_1 = new JPanel();
+		panel_1.setBorder(new EmptyBorder(10, 10, 10, 10));
+		pSpinner1.add(panel_1);
+		panel_1.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		spList = new JSpinner();
+		listDatas = new String[] {"소설", "잡지", "전공서적", "취미"};
+		SpinnerListModel spListModel =new SpinnerListModel(listDatas); 
+		spList.setModel(spListModel);
+		panel_1.add(spList);
+		
+		lblList = new JLabel("New label");
+		lblList.setFont(new Font("굴림", Font.BOLD, 12));
+		lblList.setForeground(Color.MAGENTA);
+		lblList.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_1.add(lblList);
+		
+		panel_2 = new JPanel();
+		panel_2.setBorder(new EmptyBorder(10, 10, 10, 10));
+		pSpinner1.add(panel_2);
+		panel_2.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		spNumber = new JSpinner();
+		spNumber.setModel(new SpinnerNumberModel(50, 0, 100, 10));
+		panel_2.add(spNumber);
+		
+		lblNumber = new JLabel("New label");
+		lblNumber.setFont(new Font("굴림", Font.BOLD, 12));
+		lblNumber.setForeground(Color.MAGENTA);
+		lblNumber.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_2.add(lblNumber);
+		
+		panel_3 = new JPanel();
+		panel_3.setBorder(new EmptyBorder(10, 10, 10, 10));
+		pSpinner1.add(panel_3);
+		panel_3.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		Calendar calendar  = Calendar.getInstance();
+		
+		calendar.set(2019, 1, 1);
+		Date  minValue  = calendar.getTime();
+		
+		calendar.set(2050, 12,   31);
+		Date  maxValue = calendar.getTime(); 
+		
+		Date  currentValue = new Date();
+		
+		int steps = Calendar.DAY_OF_MONTH;  // Must be  a  Calendar field
+		
+		
+		spDate = new JSpinner();
+		spDate.setModel(new SpinnerDateModel(currentValue, minValue, maxValue, steps));
+		JSpinner.DateEditor dEditor = new JSpinner.DateEditor(spDate, "yyyy-MM-dd");
+		
+		spDate.setEditor(dEditor);
+		panel_3.add(spDate);
+		
+		lblDate = new JLabel("New label");
+		lblDate.setFont(new Font("굴림", Font.BOLD, 12));
+		lblDate.setForeground(Color.MAGENTA);
+		lblDate.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_3.add(lblDate);
 		
 		pSpinner2 = new JPanel();
 		pSpinner2.setBorder(new TitledBorder(null, "JSpinner \uC608\uC81C2", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -179,12 +260,33 @@ public class Slider_SpinnerEx extends JFrame implements ChangeListener, ActionLi
 		sliderGreen.addChangeListener(this);
 		sliderBlue.addChangeListener(this);
 		
+		spList.addChangeListener(this);
+		spNumber.addChangeListener(this);
+		spDate.addChangeListener(this);
+
+		spList.setValue(listDatas[2]);
+		spNumber.setValue(new Integer(60));
+		
+		Calendar g = GregorianCalendar.getInstance();
+		g.set(2020, 04, 14);
+		spDate.setValue(g.getTime());
+		
+		
 		sliderRed.setValue(100);
 		sliderBlue.setValue(100);
 		sliderGreen.setValue(100);
 	}
 
 	public void stateChanged(ChangeEvent e) {
+		if (e.getSource() == spDate) {
+			spDateStateChanged(e);
+		}
+		if (e.getSource() == spNumber) {
+			spNumberStateChanged(e);
+		}
+		if (e.getSource() == spList) {
+			spListStateChanged(e);
+		}
 		if (e.getSource() == sliderBlue || e.getSource() == sliderRed || e.getSource() == sliderGreen) {
 			lblColor.setBackground(new Color(sliderRed.getValue(), sliderGreen.getValue(), sliderBlue.getValue()));
 			tfRed.setText(sliderRed.getValue()+"");
@@ -214,5 +316,14 @@ public class Slider_SpinnerEx extends JFrame implements ChangeListener, ActionLi
 		sliderRed.setValue(red);
 		sliderBlue.setValue(blue);
 		sliderGreen.setValue(green);
+	}
+	protected void spListStateChanged(ChangeEvent e) {
+		lblList.setText(spList.getValue().toString());
+	}
+	protected void spNumberStateChanged(ChangeEvent e) {
+		lblNumber.setText(String.format("%d", spNumber.getValue()));
+	}
+	protected void spDateStateChanged(ChangeEvent e) {
+		lblDate.setText(String.format("%tF", spDate.getValue()));
 	}
 }
