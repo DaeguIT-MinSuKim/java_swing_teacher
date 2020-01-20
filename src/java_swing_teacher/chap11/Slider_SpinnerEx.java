@@ -1,33 +1,33 @@
 package java_swing_teacher.chap11;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.GridLayout;
-import javax.swing.border.TitledBorder;
-import javax.swing.JSpinner;
-import javax.swing.JSlider;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Font;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.GridBagLayout;
-import javax.swing.SpinnerListModel;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.SpinnerDateModel;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Calendar;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SpinnerListModel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.UIManager;
+
+@SuppressWarnings("serial")
 public class Slider_SpinnerEx extends JFrame implements ChangeListener, ActionListener {
 
 	private JPanel contentPane;
@@ -35,6 +35,7 @@ public class Slider_SpinnerEx extends JFrame implements ChangeListener, ActionLi
 	private JPanel pSlider2;
 	private JPanel pSpinner1;
 	private JPanel pSpinner2;
+	
 	private JSlider slider1;
 	private JLabel lblValue1;
 	private JSlider sliderRed;
@@ -59,6 +60,7 @@ public class Slider_SpinnerEx extends JFrame implements ChangeListener, ActionLi
 	private JSpinner spDate;
 	private JLabel lblDate;
 	private String[] listDatas;
+	private JButton btnNewButton;
 
 	/**
 	 * Launch the application.
@@ -250,8 +252,12 @@ public class Slider_SpinnerEx extends JFrame implements ChangeListener, ActionLi
 		panel_3.add(lblDate);
 		
 		pSpinner2 = new JPanel();
-		pSpinner2.setBorder(new TitledBorder(null, "JSpinner \uC608\uC81C2", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		pSpinner2.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "\uC2A4\uC719 \uD398\uC778\uD305 \uBA54\uCEE4\uB2C8\uC998", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		contentPane.add(pSpinner2);
+		
+		btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(this);
+		pSpinner2.add(btnNewButton);
 		
 		slider1.addChangeListener(this);
 		slider1.setValue(100);
@@ -304,6 +310,9 @@ public class Slider_SpinnerEx extends JFrame implements ChangeListener, ActionLi
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNewButton) {
+			btnNewButtonActionPerformed(e);
+		}
 		if (e.getSource() == btnColor) {
 			btnColorActionPerformed(e);
 		}
@@ -325,5 +334,18 @@ public class Slider_SpinnerEx extends JFrame implements ChangeListener, ActionLi
 	}
 	protected void spDateStateChanged(ChangeEvent e) {
 		lblDate.setText(String.format("%tF", spDate.getValue()));
+	}
+	protected void btnNewButtonActionPerformed(ActionEvent e) {
+		System.out.println(contentPane.getComponentCount());
+		contentPane.remove(pSlider1);
+		System.out.println(contentPane.getComponentCount());
+		revalidate();
+		repaint();
+		
+		JLabel lblTest = new JLabel("텍스트");
+		contentPane.add(lblTest);
+		System.out.println(contentPane.getComponentCount());
+		revalidate();
+		repaint();
 	}
 }
