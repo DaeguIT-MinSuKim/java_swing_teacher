@@ -179,6 +179,7 @@ public class StudentTblPanel extends JPanel {
 			if (value==null) return this;
 			setText(value.toString());
 			setOpaque(true);
+			setHorizontalAlignment(JLabel.CENTER);
 			
 			if (Integer.parseInt(table.getValueAt(row, 2).toString())>=90) {
 				setBackground(Color.CYAN);
