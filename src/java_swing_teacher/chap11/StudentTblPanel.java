@@ -1,11 +1,14 @@
 package java_swing_teacher.chap11;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -13,10 +16,14 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowSorter;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import java_swing_teacher.chap11.exam.Student;
 
@@ -27,9 +34,9 @@ public class StudentTblPanel extends JPanel {
 	private NotEditableModel model;
 
 	public StudentTblPanel() {
-
 		initialize();
 	}
+	
 	private void initialize() {
 		setLayout(new BorderLayout(0, 0));
 		
@@ -58,8 +65,13 @@ public class StudentTblPanel extends JPanel {
 	private void loadData(ArrayList<Student> stds) {
 		model = new NotEditableModel(getRows(stds),	getColNames());
 		table.setModel(model);
-		
+
 		setTblWidthAlign();
+		
+		RowSorter<TableModel> sorter = new TableRowSorter<TableModel>(model);
+		table.setRowSorter(sorter);
+		
+		table.getColumnModel().getColumn(2).setCellRenderer(new ReturnTableCellRenderer());
 	}
 	
 	private void setTblWidthAlign() {
@@ -160,6 +172,27 @@ public class StudentTblPanel extends JPanel {
 			return false;
 		}
 		
+	}
+	
+	public class ReturnTableCellRenderer extends JLabel implements TableCellRenderer {
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+			if (value==null) return this;
+			setText(value.toString());
+			setOpaque(true);
+			
+			if (Integer.parseInt(table.getValueAt(row, 2).toString())>=90) {
+				setBackground(Color.CYAN);
+			}else if(Integer.parseInt(table.getValueAt(row, 2).toString())>=80) {
+				setBackground(Color.LIGHT_GRAY);
+			}
+			else {
+				setBackground(Color.WHITE);
+			}
+			if (isSelected) {
+				setBackground(Color.orange);
+			}
+			return this;
+		}
 	}
 	
 	
