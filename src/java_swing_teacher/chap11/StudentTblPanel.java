@@ -48,13 +48,13 @@ public class StudentTblPanel extends JPanel {
 		
 		scrollPane.setViewportView(table);
 		
-		// 외부에서 호출
-		ArrayList<Student> stds = new ArrayList<Student>();
-		stds.add(new Student(1, "서현진", 80, 90, 70));
-		stds.add(new Student(2, "이성경", 90, 90, 40));
-		stds.add(new Student(3, "이유영", 50, 50, 60));
-		
-		loadData(stds);
+		// JFrame에서 호출
+//		ArrayList<Student> stds = new ArrayList<Student>();
+//		stds.add(new Student(1, "서현진", 80, 90, 70));
+//		stds.add(new Student(2, "이성경", 90, 90, 40));
+//		stds.add(new Student(3, "이유영", 50, 50, 60));
+//		
+//		loadData(stds);
 	}
 	
 	public void setPopupMenu(JPopupMenu popupMenu) {
@@ -62,7 +62,7 @@ public class StudentTblPanel extends JPanel {
 		table.setComponentPopupMenu(popupMenu);
 	}
 	
-	private void loadData(ArrayList<Student> stds) {
+	public void loadData(ArrayList<Student> stds) {
 		model = new NotEditableModel(getRows(stds),	getColNames());
 		table.setModel(model);
 
@@ -135,13 +135,15 @@ public class StudentTblPanel extends JPanel {
 		model.setValueAt(std.getMath(), updateIdx, 4);
 		model.setValueAt(std.getTotal(), updateIdx, 5);
 		model.setValueAt(String.format("%.2f", std.getAvg()), updateIdx, 6);
+		
+		
 	}
 	
 	public void addItem(Student std) {
 		model.addRow(toArray(std));
 	}
 	
-	private int getSelectedRowIdx() {
+	public int getSelectedRowIdx() {
 		int selectedIdx = table.getSelectedRow();
 		if (selectedIdx == -1) {
 			throw new RuntimeException("해당 학생을 선택하세요");
@@ -225,6 +227,7 @@ public class StudentTblPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				Student upStd = new Student(2, "이상원", 100, 100, 100);
 				tbl.updateRow(upStd, 1); //이성경 학생을 이상원으로 변경
+				
 			}
 		});
 		popMenu.add(updateItem);
@@ -254,6 +257,10 @@ public class StudentTblPanel extends JPanel {
 		
 		tbl.setPopupMenu(popMenu);
 		
+	}
+
+	public void clearSelection() {
+		table.clearSelection();
 	}
 
 }

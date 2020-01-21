@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -29,11 +30,11 @@ public class StudentTableEx extends JFrame implements ActionListener {
 	private StudentPanel pStudent;
 	private JPanel pList;
 	private JPanel pBtns;
-	private JScrollPane scrollPane;
 	private ArrayList<Student> stds;
 	private JButton btnAdd;
 	private JButton btnCancel;
-
+	private int updateIdx;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -55,6 +56,7 @@ public class StudentTableEx extends JFrame implements ActionListener {
 		
 		initialize();
 		
+		pStdTbl.loadData(stds);
 	}
 
 	private void initialize() {
@@ -72,13 +74,12 @@ public class StudentTableEx extends JFrame implements ActionListener {
 		pList = new JPanel();
 		contentPane.add(pList, BorderLayout.CENTER);
 		pList.setLayout(new BorderLayout(0, 0));
-
-		scrollPane = new JScrollPane();
-		pList.add(scrollPane, BorderLayout.CENTER);
 		
-		table = new JTable();
-
-		scrollPane.setViewportView(table);
+		pStdTbl = new StudentTblPanel();
+		//바로가기 메뉴 달기
+		pStdTbl.setPopupMenu(createPopupMenu());
+		
+		pList.add(pStdTbl, BorderLayout.CENTER);
 
 		pBtns = new JPanel();
 		contentPane.add(pBtns, BorderLayout.SOUTH);
@@ -95,7 +96,6 @@ public class StudentTableEx extends JFrame implements ActionListener {
 	}
 
 	private void loadData() {
-		table.setModel(new DefaultTableModel(getRows(), getColumnNames() ));
 	}
 
 	private Object[][] getRows() {
@@ -129,21 +129,27 @@ public class StudentTableEx extends JFrame implements ActionListener {
 	}
 	
 	ActionListener myPopMenuListener = new ActionListener() {
+		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getActionCommand().equals("수정")) {
-//				pStudent.setItem(list.getSelectedValue());
-//				btnAdd.setText("수정");
-//				list.clearSelection();
+				Student upStd = pStdTbl.getSelectedItem();
+				updateIdx = pStdTbl.getSelectedRowIdx();
+				pStudent.setItem(upStd);
+				btnAdd.setText("수정");
+				pStdTbl.clearSelection();
 			}
 			if (e.getActionCommand().equals("삭제")) {
-//				stds.remove(list.getSelectedValue());
-//				list.setListData(new Vector<>(stds));
-//				pStudent.clearTf();
+				try {
+					pStdTbl.removeRow();
+				}catch(RuntimeException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage());
+				}
 			}
 		}
 	}; 
-	private JTable table;
+	private StudentTblPanel pStdTbl;
 	
 	
 	public void actionPerformed(ActionEvent e) {
@@ -160,8 +166,12 @@ public class StudentTableEx extends JFrame implements ActionListener {
 	}
 
 	private void btnUpdateActionPerformed(ActionEvent e) {
-//		Student updateStd = pStudent.getItem();
-//		stds.set(stds.indexOf(updateStd), updateStd);
+		
+		Student updateStd = pStudent.getItem();
+		stds.set(stds.indexOf(updateStd), updateStd);//Database적용
+		pStdTbl.updateRow(updateStd, updateIdx);
+		btnAdd.setText("추가");
+		pStudent.clearTf();
 //		list.setListData(new Vector<Student>(stds));
 //		btnAdd.setText("추가");
 	}
