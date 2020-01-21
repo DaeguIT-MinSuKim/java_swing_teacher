@@ -1,4 +1,4 @@
-package java_swing_teacher.chap11;
+package java_swing_teacher.chap11.exam;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -24,8 +24,6 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-
-import java_swing_teacher.chap11.exam.Student;
 
 @SuppressWarnings("serial")
 public class StudentTblPanel extends JPanel {

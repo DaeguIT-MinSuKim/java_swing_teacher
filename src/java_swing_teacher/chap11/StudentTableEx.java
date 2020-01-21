@@ -19,6 +19,8 @@ import javax.swing.border.EmptyBorder;
 
 import java_swing_teacher.chap11.exam.Student;
 import java_swing_teacher.chap11.exam.StudentPanel;
+import java_swing_teacher.chap11.exam.StudentTblPanel;
+
 import javax.swing.ListSelectionModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
