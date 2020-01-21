@@ -34,6 +34,7 @@ public class StudentTableEx extends JFrame implements ActionListener {
 	private JButton btnAdd;
 	private JButton btnCancel;
 	private int updateIdx;
+	private StudentTblPanel pStdTbl;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -129,8 +130,6 @@ public class StudentTableEx extends JFrame implements ActionListener {
 	}
 	
 	ActionListener myPopMenuListener = new ActionListener() {
-		
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getActionCommand().equals("수정")) {
@@ -149,7 +148,7 @@ public class StudentTableEx extends JFrame implements ActionListener {
 			}
 		}
 	}; 
-	private StudentTblPanel pStdTbl;
+
 	
 	
 	public void actionPerformed(ActionEvent e) {
@@ -172,15 +171,13 @@ public class StudentTableEx extends JFrame implements ActionListener {
 		pStdTbl.updateRow(updateStd, updateIdx);
 		btnAdd.setText("추가");
 		pStudent.clearTf();
-//		list.setListData(new Vector<Student>(stds));
-//		btnAdd.setText("추가");
 	}
 
 	protected void btnAddActionPerformed(ActionEvent e) {
-//		Student student = pStudent.getItem();
-//		stds.add(student);
-//		list.setListData(new Vector<Student>(stds));
-//		pStudent.clearTf();
+		Student student = pStudent.getItem();
+		stds.add(student); //Database에 insert
+		pStdTbl.addItem(student);
+		pStudent.clearTf();
 	}
 
 	protected void btnCancelActionPerformed(ActionEvent e) {
