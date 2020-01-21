@@ -21,12 +21,12 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 @SuppressWarnings("serial")
-public class StudentTblPanel extends JPanel {
+public class StudentTblPanel_Test extends JPanel {
 	private JScrollPane scrollPane;
 	private JTable table;
 	private NotEditableModel model;
 
-	public StudentTblPanel() {
+	public StudentTblPanel_Test() {
 		initialize();
 	}
 	

@@ -19,7 +19,7 @@ import javax.swing.border.EmptyBorder;
 
 import java_swing_teacher.chap11.exam.Student;
 import java_swing_teacher.chap11.exam.StudentPanel;
-import java_swing_teacher.chap11.exam.StudentTblPanel;
+import java_swing_teacher.chap11.exam.StudentTblPanel_Test;
 
 import javax.swing.ListSelectionModel;
 import javax.swing.JTable;
@@ -36,7 +36,7 @@ public class StudentTableEx extends JFrame implements ActionListener {
 	private JButton btnAdd;
 	private JButton btnCancel;
 	private int updateIdx;
-	private StudentTblPanel pStdTbl;
+	private StudentTblPanel_Test pStdTbl;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -78,7 +78,7 @@ public class StudentTableEx extends JFrame implements ActionListener {
 		contentPane.add(pList, BorderLayout.CENTER);
 		pList.setLayout(new BorderLayout(0, 0));
 		
-		pStdTbl = new StudentTblPanel();
+		pStdTbl = new StudentTblPanel_Test();
 		//바로가기 메뉴 달기
 		pStdTbl.setPopupMenu(createPopupMenu());
 		
