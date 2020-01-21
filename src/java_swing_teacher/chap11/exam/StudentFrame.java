@@ -2,29 +2,26 @@ package java_swing_teacher.chap11.exam;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class StudentFrame extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JPanel pContent;
-	private JPanel pList;
+	private StudentTblPanel pList;
 	private StudentPanel pStudent;
 	private JPanel pBtns;
 	private JButton btnAdd;
 	private JButton btnCancel;
-	private JScrollPane scrollPane;
-	private JTextArea ta;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -69,15 +66,16 @@ public class StudentFrame extends JFrame implements ActionListener {
 		btnCancel.addActionListener(this);
 		pBtns.add(btnCancel);
 		
-		pList = new JPanel();
+		pList = new StudentTblPanel();
 		contentPane.add(pList);
-		pList.setLayout(new BorderLayout(0, 0));
 		
-		scrollPane = new JScrollPane();
-		pList.add(scrollPane, BorderLayout.CENTER);
+		ArrayList<Student> stds = new ArrayList<Student>();
+		stds.add(new Student(1, "서현진", 80, 90, 70));
+		stds.add(new Student(2, "이성경", 90, 90, 40));
+		stds.add(new Student(3, "이유영", 50, 50, 60));
 		
-		ta = new JTextArea();
-		scrollPane.setViewportView(ta);
+		pList.loadData(stds);
+//		pList.setLayout(new BorderLayout(0, 0));
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -91,7 +89,7 @@ public class StudentFrame extends JFrame implements ActionListener {
 	
 	protected void btnAddActionPerformed(ActionEvent e) {
 		Student std = pStudent.getItem();
-		ta.append(std.toString() + "\n");
+//		ta.append(std.toString() + "\n");
 		pStudent.clearTf();
 	}
 	

@@ -5,25 +5,18 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import java_swing_teacher.chap11.exam.Student;
 import java_swing_teacher.chap11.exam.StudentPanel;
-import java_swing_teacher.chap11.exam.StudentTblPanel_Test;
-
-import javax.swing.ListSelectionModel;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import java_swing_teacher.chap11.exam.StudentTblPanel;
 
 @SuppressWarnings("serial")
 public class StudentTableEx extends JFrame implements ActionListener {
@@ -36,7 +29,7 @@ public class StudentTableEx extends JFrame implements ActionListener {
 	private JButton btnAdd;
 	private JButton btnCancel;
 	private int updateIdx;
-	private StudentTblPanel_Test pStdTbl;
+	private StudentTblPanel pStdTbl;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -78,7 +71,7 @@ public class StudentTableEx extends JFrame implements ActionListener {
 		contentPane.add(pList, BorderLayout.CENTER);
 		pList.setLayout(new BorderLayout(0, 0));
 		
-		pStdTbl = new StudentTblPanel_Test();
+		pStdTbl = new StudentTblPanel();
 		//바로가기 메뉴 달기
 		pStdTbl.setPopupMenu(createPopupMenu());
 		
