@@ -3,14 +3,9 @@ package java_swing_teacher.chap11.exam;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -44,15 +39,7 @@ public class StudentTblPanel extends JPanel {
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		scrollPane.setViewportView(table);
-		
-		// JFrame에서 호출
-//		ArrayList<Student> stds = new ArrayList<Student>();
-//		stds.add(new Student(1, "서현진", 80, 90, 70));
-//		stds.add(new Student(2, "이성경", 90, 90, 40));
-//		stds.add(new Student(3, "이유영", 50, 50, 60));
-//		
-//		loadData(stds);
+		scrollPane.setViewportView(table);	
 	}
 	
 	public void setPopupMenu(JPopupMenu popupMenu) {
@@ -133,8 +120,6 @@ public class StudentTblPanel extends JPanel {
 		model.setValueAt(std.getMath(), updateIdx, 4);
 		model.setValueAt(std.getTotal(), updateIdx, 5);
 		model.setValueAt(String.format("%.2f", std.getAvg()), updateIdx, 6);
-		
-		
 	}
 	
 	public void addItem(Student std) {
@@ -151,7 +136,6 @@ public class StudentTblPanel extends JPanel {
 	
 	public Student getSelectedItem() {
 		int selectedIdx = getSelectedRowIdx();
-//		int stdNo = (int) model.getValueAt(selectedIdx, 0);//001
 		int stdNo = Integer.parseInt((String)model.getValueAt(selectedIdx, 0));
 		String stdName = (String) model.getValueAt(selectedIdx, 1);
 		int kor = (int) model.getValueAt(selectedIdx, 2);
@@ -195,72 +179,11 @@ public class StudentTblPanel extends JPanel {
 			return this;
 		}
 	}
-	
-	
-	
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setBounds(10, 10, 450, 500);
-		
-		StudentTblPanel tbl = new StudentTblPanel();
-		frame.add(tbl);
-		frame.setVisible(true);
-		
-		JPopupMenu popMenu = new JPopupMenu();
-		
-		JMenuItem addItem = new JMenuItem("추가");
-		addItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Student newStduent = new Student(10, "장현서", 80, 90, 70);
-				tbl.addItem(newStduent);
-			}
-		});
-		popMenu.add(addItem);
-		
-		JMenuItem updateItem = new JMenuItem("수정");
-		updateItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Student upStd = new Student(2, "이상원", 100, 100, 100);
-				tbl.updateRow(upStd, 1); //이성경 학생을 이상원으로 변경
-				
-			}
-		});
-		popMenu.add(updateItem);
-		
-		JMenuItem getSelectedItem = new JMenuItem("선택한 학생 확인");
-		getSelectedItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Student selectedStd = tbl.getSelectedItem();
-				JOptionPane.showMessageDialog(null, "선택한 학생은" + selectedStd);
-			}
-		});
-		popMenu.add(getSelectedItem);
-		
-		JMenuItem deleteItem = new JMenuItem("삭제");
-		deleteItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					tbl.removeRow();
-				} catch (RuntimeException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage());
-				}
-			}
-		});
-		popMenu.add(deleteItem);
-		
-		tbl.setPopupMenu(popMenu);
-		
-	}
 
 	public void clearSelection() {
 		table.clearSelection();
 	}
-
+	
 }
 
 

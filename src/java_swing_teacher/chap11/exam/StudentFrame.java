@@ -26,9 +26,6 @@ public class StudentFrame extends JFrame implements ActionListener {
 	private JScrollPane scrollPane;
 	private JTextArea ta;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -42,12 +39,10 @@ public class StudentFrame extends JFrame implements ActionListener {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public StudentFrame() {
 		initialize();
 	}
+	
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 468);
