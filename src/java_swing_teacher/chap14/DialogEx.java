@@ -61,16 +61,18 @@ public class DialogEx extends JDialog implements ActionListener {
 	}
 
 	protected void okButtonActionPerformed(ActionEvent e) {
-		Student std = pStd.getItem();
-		System.out.println(std);
-		parent.setStudentText(std);
-		pStd.clearTf();
-		dispose();
+//		Student std = pStd.getItem();
+//		System.out.println(std);
+//		parent.setStudentText(std);
+//		pStd.clearTf();
+//		dispose();
+		setVisible(false);
 	}
 	
 	public void setStudent(Student std) {
 		pStd.setItem(std);
 	}
+	
 }
 
 

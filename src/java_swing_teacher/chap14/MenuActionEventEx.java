@@ -118,10 +118,12 @@ public class MenuActionEventEx extends JFrame implements ActionListener {
 		toolBar.addSeparator();
 		
 		btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(this);
 		toolBar.add(btnNewButton);
 	}
 
 	public void actionPerformed(ActionEvent e) {
+
 		if (e.getSource() == btnNew) {
 			btnNewActionPerformed(e);
 		}
@@ -141,6 +143,8 @@ public class MenuActionEventEx extends JFrame implements ActionListener {
 			mntmLoadActionPerformed(e);
 		}
 	}
+
+
 	protected void mntmLoadActionPerformed(ActionEvent e) {
 		JOptionPane.showMessageDialog(null, e.getActionCommand());
 		if (lblImg.getIcon() != null) {
@@ -182,4 +186,5 @@ public class MenuActionEventEx extends JFrame implements ActionListener {
 	public void setStudentText(Student std) {
 		lblImg.setText(std.toString());
 	}
+
 }
