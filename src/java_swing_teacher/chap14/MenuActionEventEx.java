@@ -40,7 +40,7 @@ public class MenuActionEventEx extends JFrame implements ActionListener {
 	private JToolBar toolBar;
 	private JButton btnNew;
 	private JButton btnImg;
-	private JButton btnNewButton;
+	private JButton btnModal;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -117,12 +117,15 @@ public class MenuActionEventEx extends JFrame implements ActionListener {
 		
 		toolBar.addSeparator();
 		
-		btnNewButton = new JButton("New button");
-		btnNewButton.addActionListener(this);
-		toolBar.add(btnNewButton);
+		btnModal = new JButton("모달 대화상자");
+		btnModal.addActionListener(this);
+		toolBar.add(btnModal);
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnModal) {
+			btnModalActionPerformed(e);
+		}
 
 		if (e.getSource() == btnNew) {
 			btnNewActionPerformed(e);
@@ -187,4 +190,13 @@ public class MenuActionEventEx extends JFrame implements ActionListener {
 		lblImg.setText(std.toString());
 	}
 
+	protected void btnModalActionPerformed(ActionEvent e) {
+		DialogEx dialog = new DialogEx();
+		dialog.setModal(true);
+		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		dialog.setVisible(true);
+		// 다이얼로그 대화상자 닫히면 수행
+		Student std = dialog.getInput();
+		lblImg.setText(std.toString());
+	}
 }

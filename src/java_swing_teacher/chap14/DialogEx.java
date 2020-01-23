@@ -20,6 +20,7 @@ public class DialogEx extends JDialog implements ActionListener {
 	private JButton okButton;
 	private StudentPanel pStd;
 	private MenuActionEventEx parent;
+	private JButton cancelButton;
 
 	public void setParent(MenuActionEventEx parent) {
 		this.parent = parent;
@@ -47,7 +48,8 @@ public class DialogEx extends JDialog implements ActionListener {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(this);
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
@@ -55,17 +57,20 @@ public class DialogEx extends JDialog implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == cancelButton) {
+			cancelButtonActionPerformed(e);
+		}
 		if (e.getSource() == okButton) {
 			okButtonActionPerformed(e);
 		}
 	}
 
 	protected void okButtonActionPerformed(ActionEvent e) {
-//		Student std = pStd.getItem();
-//		System.out.println(std);
-//		parent.setStudentText(std);
-//		pStd.clearTf();
-//		dispose();
+		Student std = pStd.getItem();
+		System.out.println(std);
+		parent.setStudentText(std);
+		pStd.clearTf();
+		dispose();
 		setVisible(false);
 	}
 	
@@ -73,6 +78,15 @@ public class DialogEx extends JDialog implements ActionListener {
 		pStd.setItem(std);
 	}
 	
+	protected void cancelButtonActionPerformed(ActionEvent e) {
+		setVisible(false);
+	}
+
+	public Student getInput() {
+		Student std = pStd.getItem();
+//		System.out.println(std);
+		return std;
+	}
 }
 
 
