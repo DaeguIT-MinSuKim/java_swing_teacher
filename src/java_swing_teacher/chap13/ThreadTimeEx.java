@@ -26,6 +26,10 @@ public class ThreadTimeEx extends JFrame implements ActionListener {
 	private JPanel pLbls;
 	private JLabel lblRunnableTimer;
 	private Thread th2;
+	private JPanel pFlicker;
+	private FlickeringLabel lblFlicker1;
+	private JLabel lbl;
+	private FlickeringLabel lblFlicker2;
 
 	public ThreadTimeEx() {
 		initialize();
@@ -53,7 +57,7 @@ public class ThreadTimeEx extends JFrame implements ActionListener {
 		
 		pLbls = new JPanel();
 		contentPane.add(pLbls, BorderLayout.CENTER);
-		pLbls.setLayout(new GridLayout(1, 0, 0, 0));
+		pLbls.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		lblTimer = new JLabel("");
 		lblTimer.setFont(new Font("굴림", Font.BOLD | Font.ITALIC, 80));
@@ -71,6 +75,18 @@ public class ThreadTimeEx extends JFrame implements ActionListener {
 		th = new TimerThread(lblTimer);
 		guTh = new GugudanThread();
 		TimerRunnable tr = new TimerRunnable(lblRunnableTimer);
+		
+		pFlicker = new JPanel();
+		pLbls.add(pFlicker);
+		
+		lblFlicker1 = new FlickeringLabel("깜박", 500L);
+		pFlicker.add(lblFlicker1);
+		
+		lbl = new JLabel("안깜박");
+		pFlicker.add(lbl);
+		
+		lblFlicker2 = new FlickeringLabel("여기도 깜박", 300L);
+		pFlicker.add(lblFlicker2);
 		th2 = new Thread(tr);
 	}
 
