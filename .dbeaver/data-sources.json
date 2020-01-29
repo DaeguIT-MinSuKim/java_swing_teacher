@@ -13,8 +13,7 @@
 				"database": "mysql_study",
 				"url": "jdbc:mysql://localhost:3306/mysql_study",
 				"home": "C:\\Program Files\\MySQL\\MySQL Server 5.7",
-				"type": "dev",
-				"handlers": {}
+				"type": "dev"
 			}
 		},
 		"mysql5-16fc6f09e52-1f65cf75ab3365c0": {
@@ -31,6 +30,9 @@
 				"home": "C:\\Program Files\\MySQL\\MySQL Server 5.7",
 				"type": "dev",
 				"handlers": {}
+			},
+			"custom-properties": {
+				"database.meta.separate.connection": "false"
 			}
 		}
 	},
